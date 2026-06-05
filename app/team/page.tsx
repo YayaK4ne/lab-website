@@ -1,17 +1,27 @@
 export default function TeamPage() {
-  const members = [{ name: "Yaya Kane", role: "Principal Investigator" }];
-
   return (
-    <section className="p-20">
-      <h2 className="text-3xl font-bold mb-10">Meet the Team</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {members.map((m) => (
-          <div key={m.name} className="p-6 border rounded-xl shadow-sm">
-            <h3 className="text-xl font-semibold">{m.name}</h3>
-            <p className="text-gray-500">{m.role}</p>
+    <div className="space-y-10">
+      <h1 className="text-4xl font-bold">Our Team</h1>
+      <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+        <h2 className="text-2xl font-bold mb-6">Faculty & Staff</h2>
+        <div className="space-y-4">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-800">SN</div>
+            <div>
+              <p className="font-bold">Dr. [Name]</p>
+              <p className="text-sm text-gray-500">Principal Investigator</p>
+            </div>
           </div>
-        ))}
+          <hr className="my-4" />
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-800">YK</div>
+            <div>
+              <p className="font-bold">Yaya Kane</p>
+              <p className="text-sm text-gray-500">Lead Developer</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }

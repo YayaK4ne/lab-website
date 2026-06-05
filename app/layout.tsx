@@ -15,8 +15,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             
             {/* Links Container - explicitly set to flex */}
             <div className="flex items-center gap-8 font-medium">
-              <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors">Home</Link>
-              <Link href="/about" className="text-gray-700 hover:text-blue-600 transition-colors">Overview</Link>
+              <Link href="/about" className="text-gray-700 hover:text-blue-600 transition-colors">About</Link>
+              <Link href="/overview" className="text-gray-700 hover:text-blue-600 transition-colors">Overview</Link>
               <Link href="/blog" className="text-gray-700 hover:text-blue-600 transition-colors">Blog</Link>
               <Link href="/team" className="text-gray-700 hover:text-blue-600 transition-colors">Team</Link>
               <Link href="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">Contact</Link>
