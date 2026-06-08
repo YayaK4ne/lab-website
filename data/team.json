@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Dr. [Name]",
+    "role": "Principal Investigator",
+    "initials": "SN",
+    "image": "/assets/team/dr-name.jpg"
+  },
+  {
+    "name": "Yaya Kane",
+    "role": "Lead Developer",
+    "initials": "YK",
+    "image": "/assets/team/yaya-kane.jpg"
+  }
+]

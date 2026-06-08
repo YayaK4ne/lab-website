@@ -4,16 +4,18 @@ import { useState } from 'react';
 export default function ModelDemo() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
-
-  const runAnalysis = () => {
-    setLoading(true);
-    setResult(null);
-    // Simulate an API call to your AI model
-    setTimeout(() => {
-      setLoading(false);
-      setResult("Confidence Score: 98.4% | Classification: Healthy");
-    }, 2000);
-  };
+const runAnalysis = async () => {
+  setLoading(true);
+  
+  const response = await fetch('/api/analyze', {
+    method: 'POST',
+    body: JSON.stringify({ data: "input_data_here" }),
+  });
+  
+  const data = await response.json();
+  setResult(`Confidence: ${data.confidence} | Class: ${data.classification}`);
+  setLoading(false);
+};
 
   return (
     <div style={{ padding: '30px', background: '#1f1f1f', borderRadius: '15px', border: '1px solid #333', color: '#ffffff', marginTop: '20px' }}>

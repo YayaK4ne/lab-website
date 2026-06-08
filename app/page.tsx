@@ -7,7 +7,6 @@ export default function Home() {
   return (
     <main style={{ maxWidth: '1000px', margin: '0 auto', padding: '20px' }}>
       <Hero />
-      <StatusWidget />
       <Features />
       <ModelDemo />
     </main>
