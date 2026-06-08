@@ -1,6 +1,5 @@
 import Hero from '../components/Hero';
 import Features from '../components/Features';
-import StatusWidget from '../components/StatusWidget';
 import ModelDemo from '../components/ModelDemo'; // Import it
 
 export default function Home() {
