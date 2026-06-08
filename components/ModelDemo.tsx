@@ -1,38 +1,56 @@
-'use client'; // This is required because we are using React hooks
-import { useState } from 'react';
+'use client';
+import { useState, ChangeEvent } from 'react';
 
 export default function ModelDemo() {
+  const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<string | null>(null);
-const runAnalysis = async () => {
-  setLoading(true);
-  
-  const response = await fetch('/api/analyze', {
-    method: 'POST',
-    body: JSON.stringify({ data: "input_data_here" }),
-  });
-  
-  const data = await response.json();
-  setResult(`Confidence: ${data.confidence} | Class: ${data.classification}`);
-  setLoading(false);
-};
+  const [result, setResult] = useState<any>(null);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) setFile(e.target.files[0]);
+  };
+
+  const runAnalysis = async () => {
+    if (!file) return;
+
+    setLoading(true);
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await fetch('/api/analyze', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await response.json();
+    setResult(data);
+    setLoading(false);
+  };
 
   return (
-    <div style={{ padding: '30px', background: '#1f1f1f', borderRadius: '15px', border: '1px solid #333', color: '#ffffff', marginTop: '20px' }}>
-      <h3 style={{ marginBottom: '10px' }}>AI Model Interface</h3>
-      <p style={{ marginBottom: '20px', color: '#aaa' }}>Simulate inference on clinical dental datasets.</p>
+    // Applied dark theme styles: bg-[#1f1f1f], border-[#333], text-white
+    <div className="p-8 bg-[#1f1f1f] border border-[#333] rounded-xl shadow-lg space-y-6 text-white">
+      <h2 className="text-xl font-bold">AI Diagnostic Tool</h2>
       
+      <input 
+        type="file" 
+        onChange={handleFileChange} 
+        className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-[#333] file:text-white hover:file:bg-[#444] cursor-pointer" 
+      />
+
       <button 
         onClick={runAnalysis} 
-        disabled={loading}
-        style={{ background: loading ? '#555' : '#0070f3', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
+        disabled={loading || !file}
+        className="w-full bg-[#0070f3] text-white py-2 rounded-lg font-medium hover:bg-[#005bb5] disabled:bg-[#333] disabled:text-gray-500 transition-all"
       >
         {loading ? 'Processing...' : 'Run Analysis'}
       </button>
 
       {result && (
-        <div style={{ marginTop: '20px', padding: '15px', background: '#121212', borderRadius: '8px', border: '1px solid #0070f3' }}>
-          <strong>Output:</strong> {result}
+        <div className="p-4 bg-[#121212] rounded-lg border border-[#333] text-sm space-y-1">
+          <p className="text-gray-300"><strong>Result:</strong> {result.classification}</p>
+          <p className="text-gray-300"><strong>Confidence:</strong> {result.confidence}%</p>
+          <p className="text-gray-500 text-xs mt-2">Processed: {result.processedAt}</p>
         </div>
       )}
     </div>

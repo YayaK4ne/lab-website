@@ -1,16 +1,26 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-  const body = await request.json();
-  
-  // This is where you would call your AI model or database
-  // For now, let's simulate the server-side logic:
-  const simulationResult = {
-    status: "success",
-    classification: "Healthy",
-    confidence: 0.984,
-    timestamp: new Date().toISOString()
-  };
+  try {
+    const formData = await request.formData();
+    const file = formData.get('file') as File;
 
-  return NextResponse.json(simulationResult);
+    if (!file) {
+      return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
+    }
+
+    // SIMULATION: In a real lab scenario, you would pipe this 'file' 
+    // into a Python inference engine or an AI model API here.
+    const result = {
+      status: "success",
+      fileName: file.name,
+      classification: "Healthy",
+      confidence: 98.4,
+      processedAt: new Date().toISOString()
+    };
+
+    return NextResponse.json(result);
+  } catch (error) {
+    return NextResponse.json({ error: "Analysis failed" }, { status: 500 });
+  }
 }
